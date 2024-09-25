@@ -1,0 +1,91 @@
+package br.unipar.conversormoedas
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    @SuppressLint("MissingInflatedId", "CutPasteId", "SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        
+        val valorDesejado = findViewById<EditText>(R.id.valorInfo)
+        val valorConversao = findViewById<EditText>(R.id.taxaConversao)
+        val botaoConversao = findViewById<Button>(R.id.btnConverter)
+        val resultado = findViewById<TextView>(R.id.txtResultado)
+
+        botaoConversao.setOnClickListener {
+
+            val valorInfo = valorDesejado.text.toString()
+            val taxaConv = valorConversao.text.toString()
+
+
+            if (valorInfo.isNotEmpty() && taxaConv.isNotEmpty()) {
+                valorInfo.toDouble() * taxaConv.toDouble()
+            } else {
+                resultado.text = "Informe ambos os valores"
+            }
+        }
+
+    }
+
+}
+
+
+*/--------------------------------------/*
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/valorInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Informe o valor desejado:"
+        android:inputType="numberDecimal"
+        tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/taxaConversao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Informe a taxa de conversão"
+        android:inputType="numberDecimal"
+        tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+    <Button
+        android:id="@+id/btnConverter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Converter"
+        tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+    <TextView
+        android:id="@+id/txtResultado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Resultado"
+        android:textSize="18sp"
+        android:paddingTop="16dp"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>
