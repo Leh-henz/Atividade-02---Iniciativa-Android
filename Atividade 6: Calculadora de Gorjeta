@@ -1,0 +1,93 @@
+package br.unipar.calculadoragorjeta
+
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    @SuppressLint("CutPasteId", "SetTextI18n")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(androidx.constraintlayout.widget.R.id.view_transition)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        
+        val valorInformadoConta = findViewById<EditText>(R.id.valorConta)
+        val porcentagemdaGorjeta = findViewById<EditText>(R.id.percentualGorjeta)
+        val btnCalculo = findViewById<Button>(R.id.btnCalculo)
+        val resultado = findViewById<TextView>(R.id.txtResultado)
+
+        btnCalculo.setOnClickListener {
+
+            val valorConta = valorInformadoConta.text.toString()
+            val valorGorjeta = porcentagemdaGorjeta.text.toString()
+
+
+            if (valorConta.isNotEmpty() && valorGorjeta.isNotEmpty()) {
+                val porcentagemGorjeta = valorConta.toDouble() * (valorGorjeta.toDouble() / 100)
+                val contaFinal = valorConta.toDouble() + porcentagemGorjeta
+                resultado.text = "Valor da Gorjeta: $valorGorjeta . Valor total com Gorjeta: $contaFinal"
+            }else{
+                resultado.text = "Informe os valores:"
+            }
+        }
+
+    }
+}
+
+
+*/---------------------------/*
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/valorConta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Valor da Conta"
+        android:inputType="numberDecimal"
+        tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+    <EditText
+        android:id="@+id/percentualGorjeta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Porcentagem da Gorjeta"
+        android:inputType="numberDecimal"
+        tools:ignore="Autofill,HardcodedText,TextContrastCheck,TouchTargetSizeCheck,VisualLintTextFieldSize" />
+
+    <Button
+        android:id="@+id/btnCalculo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calcular"
+        tools:ignore="HardcodedText,VisualLintButtonSize" />
+
+    <TextView
+        android:id="@+id/txtResultado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:text="Valor gorjeta:"
+        android:textSize="18sp"
+        tools:ignore="HardcodedText" />
+
+</LinearLayout>
+    </androidx.constraintlayout.widget.ConstraninLayout>
