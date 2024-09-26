@@ -89,3 +89,4 @@ class MainActivity : AppCompatActivity() {
         tools:ignore="HardcodedText" />
 
 </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
